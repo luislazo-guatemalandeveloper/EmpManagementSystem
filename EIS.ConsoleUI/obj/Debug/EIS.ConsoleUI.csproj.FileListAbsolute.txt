@@ -1,0 +1,17 @@
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.ConsoleUI.exe.config
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.ConsoleUI.exe
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.ConsoleUI.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.BLL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.BOL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EntityFramework.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EntityFramework.SqlServer.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.DAL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.BLL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.BOL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EntityFramework.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EntityFramework.SqlServer.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.DAL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\obj\Debug\EIS.ConsoleUI.csprojResolveAssemblyReference.cache
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\obj\Debug\EIS.ConsoleUI.exe
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\obj\Debug\EIS.ConsoleUI.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.ConsoleUI\bin\Debug\EIS.DAL.dll.config

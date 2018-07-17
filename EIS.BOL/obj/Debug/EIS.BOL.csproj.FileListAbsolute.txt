@@ -1,0 +1,5 @@
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BOL\bin\Debug\EIS.BOL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BOL\bin\Debug\EIS.BOL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BOL\obj\Debug\EIS.BOL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BOL\obj\Debug\EIS.BOL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BOL\obj\Debug\EIS.BOL.csprojResolveAssemblyReference.cache

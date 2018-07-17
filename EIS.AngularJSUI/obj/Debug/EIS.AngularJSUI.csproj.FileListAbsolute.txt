@@ -1,0 +1,42 @@
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\csc.exe
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CSharp.Core.targets
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\System.Collections.Immutable.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\System.Reflection.Metadata.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\vbc.exe
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\VBCSCompiler.exe
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\VBCSCompiler.exe.config
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.dll.config
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.csprojResolveAssemblyReference.cache
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\csc.exe
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\System.Collections.Immutable.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\System.Reflection.Metadata.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\vbc.exe
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\VBCSCompiler.exe
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\roslyn\VBCSCompiler.exe.config
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.dll.config
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\EIS.AngularJSUI.pdb
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.csprojResolveAssemblyReference.cache
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.csproj.CoreCompileInputs.cache
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.csproj.CopyComplete
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.dll
+C:\AngularJs\EmployeeInformationSystem\EIS.AngularJSUI\obj\Debug\EIS.AngularJSUI.pdb

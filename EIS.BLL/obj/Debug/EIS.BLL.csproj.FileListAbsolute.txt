@@ -1,0 +1,12 @@
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.BLL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.BLL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.BOL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.DAL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EntityFramework.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.BOL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.DAL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EntityFramework.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\obj\Debug\EIS.BLL.csprojResolveAssemblyReference.cache
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\obj\Debug\EIS.BLL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\obj\Debug\EIS.BLL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.BLL\bin\Debug\EIS.DAL.dll.config

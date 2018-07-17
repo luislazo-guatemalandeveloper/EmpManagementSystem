@@ -1,0 +1,1866 @@
+﻿string subject = "Your Login Credentials On EIS";
+                string body = "User Name : " + emp.Email + "\n" +
+                             "Password : " + emp.Password + "\n" +
+                             "Login Here : http:\\\\empManagementSystem.com\\login" + "\n" +
+                             "Regards," + "\n" +
+                             "empManagementSystem.com";
+                Utility.SendEmail(emp.Email, subject, body);public partial class Role
+{
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string RoleCode { get; set; }
+}
+
+
+[Table("Employee")]
+    public partial class Employee
+    {
+        [Key]
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        public string EmployeeId { get; set; }
+
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        [Required]
+        public string Email { get; set; }
+
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        [Required]
+        public string Password { get; set; }
+
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Gender { get; set; }
+        public string Contact { get; set; }
+        public string Address { get; set; }
+        public DateTime DOJ { get; set; }
+        public string Designation { get; set; }
+        public double? TotalExp { get; set; }
+        public double? RelevantExp { get; set; }
+        public string BankName { get; set; }
+        public string IFSCCode { get; set; }
+        public string AcNo { get; set; }
+        public string PAN { get; set; }
+        public int RoleId { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+        [ForeignKey("RoleId")]
+        public virtual Role Role { get; set; }        
+    }
+
+
+	public class EISDBContext : DbContext
+    {
+        public EISDBContext():base("EISDB")
+        {
+
+        }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+    }
+
+
+	public class RoleDb
+    {
+        private EISDBContext db;
+
+        public RoleDb()
+        {
+            db = new EISDBContext();
+        }
+        public IEnumerable<Role> GetALL()
+        {
+            return db.Roles.ToList();
+        }
+        public Role GetByID(int Id)
+        {
+            return db.Roles.Find(Id);
+        }
+        public void Insert(Role role)
+        {
+            db.Roles.Add(role);
+            Save();
+        }
+        public void Delete(int Id)
+        {
+            Role role = db.Roles.Find(Id);
+            db.Roles.Remove(role);
+            Save();
+        }
+        public void Update(Role role)
+        {
+            db.Entry(role).State = EntityState.Modified;
+            db.Configuration.ValidateOnSaveEnabled = false;
+            Save();
+            db.Configuration.ValidateOnSaveEnabled = true;
+        }
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+    }
+
+	public class EmployeeDb
+    {
+        private EISDBContext db;
+
+        public EmployeeDb()
+        {
+            db = new EISDBContext();
+        }
+        public IEnumerable<Employee> GetALL()
+        {
+            return db.Employees.ToList();
+        }
+        public Employee GetByID(string Id)
+        {
+            return db.Employees.Find(Id);
+        }
+        public void Insert(Employee emp)
+        {
+            db.Employees.Add(emp);
+            Save();
+        }
+        public void Delete(string Id)
+        {
+            Employee emp = db.Employees.Find(Id);
+            db.Employees.Remove(emp);
+            Save();
+        }
+        public void Update(Employee emp)
+        {
+            db.Entry(emp).State = EntityState.Modified;
+            db.Configuration.ValidateOnSaveEnabled = false;
+            Save();
+            db.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        public Employee GetByEmail(string email)
+        {
+            return db.Employees.Where(x=>x.Email==email).FirstOrDefault();
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+    }
+
+	
+  <connectionStrings>
+    <add name="EISDB" connectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=EISDB;Integrated Security=True" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+
+
+  Database.SetInitializer(new MigrateDatabaseToLatestVersion<EISDBContext, EIS.DAL.Migrations.Configuration>());
+
+
+  public class RoleBs
+    {
+        private RoleDb objDb;
+
+        public RoleBs()
+        {
+            objDb = new RoleDb();
+        }
+        public IEnumerable<Role> GetALL()
+        {
+            return objDb.GetALL().ToList();
+        }
+        public Role GetByID(int Id)
+        {
+            return objDb.GetByID(Id);
+        }
+        public void Insert(Role role)
+        {
+            objDb.Insert(role);
+        }
+        public void Delete(int Id)
+        {
+            objDb.Delete(Id);
+        }
+        public void Update(Role role)
+        {
+            objDb.Update(role);
+        }
+    }
+
+	public class EmployeeBs
+    {
+        private EmployeeDb ObjDb;
+
+        public List<string> Errors = new List<string>();
+
+        public EmployeeBs()
+        {
+            ObjDb = new EmployeeDb();
+        }
+        public IEnumerable<Employee> GetALL()
+        {
+            return ObjDb.GetALL();
+        }
+        public Employee GetByID(string Id)
+        {
+            return ObjDb.GetByID(Id);
+        }     
+
+        public bool Insert(Employee emp)
+        {
+            if (IsValidOnInsert(emp))
+            {
+                ObjDb.Insert(emp);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void Delete(string Id)
+        {
+            ObjDb.Delete(Id);
+        }
+        public bool Update(Employee emp)
+        {
+            if (IsValidOnUpdate(emp))
+            {
+                ObjDb.Update(emp);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Employee GetByEmail(string email)
+        {
+            return ObjDb.GetByEmail(email);
+        }
+
+        public Employee RecoverPasswordByEmail(string email)
+        {
+            var emp=ObjDb.GetByEmail(email);
+            return emp;
+        }
+
+        public bool IsValidOnInsert(Employee emp)
+        {
+	    return true;
+        }
+
+        public bool IsValidOnUpdate(Employee emp)
+        {
+                return true;
+        }
+    }
+
+
+	public class RoleController : ApiController
+    {
+        RoleBs roleObjBs;
+
+        public RoleController()
+        {
+            roleObjBs = new RoleBs();
+        }
+
+        [ResponseType(typeof(IEnumerable<Role>))]
+        public IHttpActionResult Get()
+        {
+            return Ok(roleObjBs.GetALL());
+        }
+
+        [ResponseType(typeof(Role))]
+        public IHttpActionResult Get(int id)
+        {
+            Role role = roleObjBs.GetByID(id);
+            if (role != null)
+                return Ok(role);
+            else
+                return NotFound();
+        }
+
+        [ResponseType(typeof(Role))]
+        public IHttpActionResult Post(Role role)
+        {
+            if (ModelState.IsValid)
+            {
+                roleObjBs.Insert(role);
+                return CreatedAtRoute("DefaultApi", new { id = role.RoleId }, role);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [ResponseType(typeof(Role))]
+        public IHttpActionResult Put(int id, Role role)
+        {
+            if (ModelState.IsValid)
+            {
+                roleObjBs.Update(role);
+                return Ok(role);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+        [ResponseType(typeof(Role))]
+        public IHttpActionResult Delete(int id)
+        {
+            Role role = roleObjBs.GetByID(id);
+            if (role != null)
+            {
+                roleObjBs.Delete(id);
+                return Ok(role);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+    }
+
+
+	 <div id="wrapper" class="active">
+
+        <!-- Sidebar -->
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul id="sidebar_menu" class="sidebar-nav">
+                <li class="sidebar-brand"><a id="menu-toggle" href="#">EIS - Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+            </ul>
+            <ul class="sidebar-nav" id="sidebar">
+                <li class="active"><a href="#/Home">Home <span style="font-size:16px;" class="pull-right glyphicon glyphicon-home"></span></a></li>
+                <li ><a href="#/EmployeeManagement">Employee Mgmt <span style="font-size:16px;" class="pull-right glyphicon glyphicon-tasks"></span></a></li>
+                <li><a href="#/EmployeeProfile">Employee Profile<span style="font-size:16px;" class="pull-right glyphicon glyphicon-pencil"></span></a></li>
+                <li><a href="#/Logout">Logout <span style="font-size:16px;" class="pull-right glyphicon glyphicon-log-out"></span></a></li>
+                <li><a href="#/Login">Login <span style="font-size:16px;" class="pull-right glyphicon glyphicon-log-in"></span></a></li>
+                <li><a href="#">Welcome, FirstName<span style="font-size:16px;" class="pull-right glyphicon glyphicon-user"></span></a></li>
+
+            </ul>
+        </div>
+
+        <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div ng-view="">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<div>
+            <footer>
+                <center><p>&copy; 2018 - EMP Management V1</p></center>
+            </footer>
+        <blockquote class="pull-right">
+            <p>No engineer should leave their country for hunting the job.</p>
+            <small><a href="empManagementSystem.com" target="_blank"> empManagement</a><cite title="Source Title"> [MCT]</cite></small>
+        </blockquote>
+        </div>
+
+
+		
+.row{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+    height: 100%
+}
+
+#sidebar-wrapper {
+    margin-left: -300px;
+    left: 50px;
+    width: 300px;
+    background:#2c3e50;
+    position: fixed;
+    height: 100%;
+    z-index: 10000;
+    transition: all .4s ease 0s;
+}
+
+.sidebar-nav {
+    display: block;
+    float: left;
+    width: 300px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#page-content-wrapper {
+    padding-left: 0;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding-top:2em;
+}
+#wrapper.active {
+    padding-left: 300px;
+}
+#wrapper.active #sidebar-wrapper {
+    left: 300px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+#sidebar_menu li a, .sidebar-nav li a {
+    color: #999;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 300px;
+    background: #2c3e50;
+    border-top: 1px solid #2c3e50;
+    border-bottom: 1px solid #2c3e50;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
+}
+.sidebar_name {
+    padding-top: 25px;
+    color: #fff;
+    opacity: .7;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  color: #fff;
+  background:#141d27;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 25px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+#main_icon
+{
+    float:right;
+   padding-right: 20px;
+   padding-top:20px;
+   
+}
+
+.main_icon:hover{
+background:#ecf0f1;
+}
+.sub_icon
+{
+    float:right;
+   padding-right: 65px;
+   padding-top:10px;
+}
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+@media (max-width:767px) {
+    #wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+}
+#sidebar-wrapper {
+    left: 70px;
+}
+#wrapper.active {
+    padding-left: 150px;
+}
+#wrapper.active #sidebar-wrapper {
+    left: 150px;
+    width: 300px;
+    transition: all .4s ease 0s;
+}
+}
+
+/*bootstrap custom*/
+.pull-right {
+    float: right !important;
+    margin: 13px;
+    margin-right: 22px;
+}
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    padding: 25px;
+}
+
+body{
+   font-size: 20px;
+   line-height: 1.5;
+}
+
+.form-control {
+       font-size: 20px;
+}
+
+.panel-title {
+    font-size: 25px;
+}
+.row{
+    margin-left:0px;
+    margin-right:0px;
+}
+
+#wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+    height: 100%
+}
+
+#sidebar-wrapper {
+    margin-left: -300px;
+    left: 50px;
+    width: 300px;
+    background:#2c3e50;
+    position: fixed;
+    height: 100%;
+    z-index: 10000;
+    transition: all .4s ease 0s;
+}
+
+.sidebar-nav {
+    display: block;
+    float: left;
+    width: 300px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#page-content-wrapper {
+    padding-left: 0;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    padding-top:2em;
+}
+#wrapper.active {
+    padding-left: 300px;
+}
+#wrapper.active #sidebar-wrapper {
+    left: 300px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+#sidebar_menu li a, .sidebar-nav li a {
+    color: #999;
+    display: block;
+    float: left;
+    text-decoration: none;
+    width: 300px;
+    background: #2c3e50;
+    border-top: 1px solid #2c3e50;
+    border-bottom: 1px solid #2c3e50;
+    -webkit-transition: background .5s;
+    -moz-transition: background .5s;
+    -o-transition: background .5s;
+    -ms-transition: background .5s;
+    transition: background .5s;
+}
+.sidebar_name {
+    padding-top: 25px;
+    color: #fff;
+    opacity: .7;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  color: #fff;
+  background:#141d27;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 25px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+#main_icon
+{
+    float:right;
+   padding-right: 20px;
+   padding-top:20px;
+   
+}
+
+.main_icon:hover{
+background:#ecf0f1;
+}
+.sub_icon
+{
+    float:right;
+   padding-right: 65px;
+   padding-top:10px;
+}
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+@media (max-width:767px) {
+    #wrapper {
+    padding-left: 70px;
+    transition: all .4s ease 0s;
+}
+#sidebar-wrapper {
+    left: 70px;
+}
+#wrapper.active {
+    padding-left: 150px;
+}
+#wrapper.active #sidebar-wrapper {
+    left: 150px;
+    width: 300px;
+    transition: all .4s ease 0s;
+}
+}
+
+/*bootstrap custom*/
+.pull-right {
+    float: right !important;
+    margin: 13px;
+    margin-right: 22px;
+}
+.jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    padding: 25px;
+}
+
+body{
+   font-size: 20px;
+   line-height: 1.5;
+}
+
+.form-control {
+       font-size: 20px;
+}
+
+.panel-title {
+    font-size: 25px;
+}
+
+
+
+$("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("active");
+});
+
+
+var appEIS = angular.module('appEIS', []);
+
+appEIS.config(function ($routeProvider, $httpProvider) {
+    $routeProvider.when('/Home', { templateUrl: 'Views/Common/Home/Home.html'});
+    $routeProvider.when('/Login', { templateUrl: 'Views/Common/Login/Login.html'});
+    $routeProvider.when('/RecoverPassword', { templateUrl: 'Views/Common/RecoverPassword/RecoverPassword.html'});
+    $routeProvider.when('/EmployeeManagement', { templateUrl: 'Views/Employee/EmployeeMgmt/EmployeeMgmt.html'});
+    $routeProvider.when('/EmployeeProfile/', { templateUrl: 'Views/Employee/EmployeeUpdate/EmployeeUpdate.html'});
+    $routeProvider.when('/Logout', {    });
+    $routeProvider.otherwise({ redirectTo: '/Home' });
+});
+
+
+appEIS.config(function ($routeProvider, $httpProvider) {
+    $routeProvider.when('/Home', { templateUrl: 'Views/Common/Home/Home.html', controller: 'homeController' });
+    $routeProvider.when('/Login', { templateUrl: 'Views/Common/Login/Login.html', controller: 'loginController' });
+    $routeProvider.when('/RecoverPassword', { templateUrl: 'Views/Common/RecoverPassword/RecoverPassword.html', controller: 'recoverPasswordController' });
+    $routeProvider.when('/EmployeeManagement', { templateUrl: 'Views/Employee/EmployeeMgmt/EmployeeMgmt.html', controller: 'employeeMgmtController' });
+    $routeProvider.when('/EmployeeProfile/', { templateUrl: 'Views/Employee/EmployeeUpdate/EmployeeUpdate.html', controller: 'employeeUpdateController' });
+    $routeProvider.when('/Logout', {    });
+    $routeProvider.otherwise({ redirectTo: '/Home' });
+});
+
+
+appEIS.factory('employeeMgmtService', function ($http) {
+    empMgmtObj = {};
+
+    empMgmtObj.getAll = function () {
+        var Emps;
+
+        Emps = $http({ method: 'Get', url: 'http://localhost:64474/api/Employee' }).
+        then(function (response) {
+            return response.data;
+
+        });
+
+        return Emps;
+    };
+   
+    return empMgmtObj;
+});
+
+employeeMgmtService.getAll().then(function (result) {
+        $scope.Emps = result;
+    });
+
+
+
+	<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Profiles List</h3>
+    </div>
+    <div class="panel-body">
+
+        
+    </div>
+</div>
+
+
+
+
+<table class="table table-striped table-hover">
+    <tr>
+        <td><a>EmployeeId</a></td>
+        <td><a>Email</a></td>
+        <td><a>Name</a></td>
+        <td><a>Contact</a></td>
+    </tr>
+    <tr ng-repeat="emp in Emps">
+        <td>{{emp.EmployeeId}}</td>
+        <td>{{emp.Email}}</td>
+        <td>{{emp.FirstName}} {{emp.LastName}}</td>
+        <td>{{emp.Contact}}</td>
+    </tr>
+</table>
+
+
+<div class="well">
+    <input type="text" class="form-control" ng-model="search" placeholder="Type In To Search Employee">
+</div>
+
+
+
+$scope.Sort = function (col) {
+        $scope.key = col;
+        $scope.AscOrDesc = !$scope.AscOrDesc;
+    }
+
+
+
+
+	        <dir-pagination-controls max-size="3"
+                                 direction-links="true"
+                                 boundary-links="true">
+        </dir-pagination-controls>
+
+<form name="createEmployeeForm">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Create Employee Profile</h3>
+        </div>
+        <div class="panel-body">
+
+        </div>
+    </div>
+</form>
+
+<div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Employee Id *</label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" ng-model="Emp.EmployeeId" name="EmployeeId" value="" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Email *</label>
+                    <div class="col-md-4">
+                        <input type="email" class="form-control" ng-model="Emp.Email" value="" name="Email" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    empMgmtObj.createEmployee = function (emp) {
+        var Emp;
+
+        Emp = $http({ method: 'Post', url: 'http://localhost:61158/api/Employee', data: emp }).
+        then(function (response) {
+
+            return response.data;
+
+        }, function (error) {
+            return error.data;
+        });
+
+        return Emp;
+    };
+
+
+	$scope.CreateEmployee = function (Emp) {
+        employeeMgmtService.createEmployee(Emp).then(function (result) {
+            $scope.Msg = " You have successfully created " + result.EmployeeId;
+        });
+    };
+
+	
+        Emp.Password = Math.random().toString(36).substr(2, 5);
+
+appEIS.factory("utilityService", function ($http) {
+    utilityObj = {};
+
+    utilityObj.randomPassword = function () {
+        return Math.random().toString(36).substr(2, 5);
+    };
+
+    return utilityObj;
+});
+
+$scope.Emp.Password = utilityService.randomPassword();
+
+public Employee()
+        {
+            RoleId = 2;
+            CreatedDate = DateTime.Now; 
+        }
+
+<div id="alert" class="alert alert-success" ng-show="Flg">
+    {{Msg}}
+</div>
+
+$scope.Msg = " You have successfully deleted " + result.EmployeeId;
+                    $scope.Flg = true;
+
+ $("#alert").fadeTo(2000, 500).slideUp(1000, function () {
+            $("#alert").slideUp(1000);
+        });
+
+utilityObj.myAlert = function () {
+        $("#alert").fadeTo(2000, 500).slideUp(1000, function () {
+            $("#alert").slideUp(1000);
+        });
+    };
+
+
+        <div>
+            <ul>
+                <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.EmployeeId.$invalid"> EmployeeId is required</li>
+                <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.Email.$error.required"> Email is required</li>
+                <li class="alert alert-danger" ng-if="createEmployeeForm.$submitted && createEmployeeForm.Email.$error.email">Email is Invalid</li>
+            </ul>
+
+
+ EmployeeBs employeeObjBs = new EmployeeBs();
+
+            //Unique Employee Id Validation
+            string EmployeeIdValue = emp.EmployeeId.ToString();
+            int count = employeeObjBs.GetALL().Where(x => x.EmployeeId == EmployeeIdValue).ToList().Count();
+            if (count != 0)
+            {
+                Errors.Add("EmployeeId Already Exist");
+            }
+
+            //Unique Email Validation
+            string EmailValue = emp.Email.ToString();
+            count = employeeObjBs.GetALL().Where(x => x.Email == EmailValue).ToList().Count();
+            if (count != 0)
+            {
+                Errors.Add("Email Already Exist");
+            }
+
+            if (Errors.Count() == 0)
+                return true;
+            else
+                return false;
+
+
+foreach (var error in employeeObjBs.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+            return BadRequest(ModelState);
+
+
+else {
+                    $scope.serverErrorMsgs = result.ModelState;
+                }
+
+
+
+<ul ng-repeat="item in serverErrorMsgs">
+                <li><div class="alert alert-danger">{{item[0]}}</div></li>
+            </ul>
+
+
+empMgmtObj.deleteEmployeeById = function (eid) {
+        var Emps;
+
+        Emps = $http({ method: 'Delete', url: 'http://localhost:60736/api/Employee', params: { id: eid } }).
+        then(function (response) {
+            return response.data;
+
+        });
+
+        return Emps;
+    };
+
+
+	$scope.DeleteEmployeeById = function (Emp) {
+        if ($window.confirm("Do you want to delete Employee with Id:"+Emp.EmployeeId+"?")) {
+            employeeMgmtService.deleteEmployeeById(Emp.EmployeeId).then(function (result) {
+                if (result.ModelState == null) {
+                    $scope.Msg = " You have successfully deleted " + result.EmployeeId;
+                    $scope.Flg = true;
+                    utilityService.myAlert();
+
+                    employeeMgmtService.getAll().then(function (result) {
+                        $scope.Emps = result;
+                    });
+                }
+                else {
+                    $scope.serverErrorMsgs = result.ModelState;
+                }
+            });
+        }
+    }
+
+
+	<td ng-click="DeleteEmployeeById(emp)"><a><span class="glyphicon glyphicon-minus-sign"></span></a></td>
+
+
+	<a href="#/EmployeeProfile/{{emp.EmployeeId}}">{{emp.EmployeeId}}</a>
+
+
+	<form name="updateEmployeeForm">
+    <div class="panel panel-primary" id="profilePanel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Profile Details</h3>
+        </div>
+        <div class="panel-body">
+            <ul class="nav nav-tabs">
+               
+                <li class="active"><a href="#Personal" data-toggle="tab" aria-expanded="false">Personal Details</a></li>
+                <li class=""><a href="#Professional" data-toggle="tab" aria-expanded="false">Professional Details</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">              
+
+                <div class="tab-pane fade active in" id="Personal">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2" >Employee Id</label>
+                                <div class="col-md-4">
+                                    <input type="text" ng-disabled="true" class="form-control" ng-model="Emp.EmployeeId" name="EmployeeId" value="" required />
+                                </div>
+                                <label class="control-label col-md-2">Email</label>
+                                <div class="col-md-4">
+                                    <input type="email" class="form-control" ng-disabled="true" ng-model="Emp.Email" value="" name="Email" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">First Name *</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.FirstName" name="FirstName" value="" required />
+                                </div>
+                                <label class="control-label col-md-2">Last Name *</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.LastName" value="" name="LastName" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Gender *</label>
+                                <div class="col-md-4">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="Gender" id="" ng-model="Emp.Gender" value="Male" required checked="">
+                                            Male
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="Gender" id="" ng-model="Emp.Gender" value="Female" required>
+                                            Female
+                                        </label>
+                                    </div>
+                                </div>
+                                <label class="control-label col-md-2">Contact No *</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.Contact" value="" name="Contact" required />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Address *</label>
+                                <div class="col-md-10">
+                                    <textarea type="text" class="form-control" ng-model="Emp.Address" name="Address" value="" required />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="Professional">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Date Of Joining</label>
+                                <div class="col-md-4">
+                                    <input type="date" class="form-control" ng-model="Emp.DOJ" name="DOJ" value="" />
+                                </div>
+                                <label class="control-label col-md-2">Designation</label>
+                                <div class="col-md-4">
+                                    <select class="form-control" ng-model="Emp.Designation" name="Designation" id="">
+                                        <option value="1">Software Trainee</option>
+                                        <option value="2">Software Engineer</option>
+                                        <option value="3">Sr. Software Engineer</option>
+                                        <option value="4">Team Lead</option>
+                                        <option value="5">Project Manager</option>
+                                        <option value="6">Others</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Total Exp</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.TotalExp" value="" name="TotalExp"  />
+                                </div>
+                                <label class="control-label col-md-2">Relevant Exp</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.RelevantExp" name="RelevantExp" value=""  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Bank Name</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.BankName" name="BankName" value=""  />
+                                </div>
+                                <label class="control-label col-md-2">IFSC Code</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.IFSCCode" value="" name="IFSCCode"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2">A/C No</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.AcNo" name="AcNo" value=""  />
+                                </div>
+                                <label class="control-label col-md-2">PAN</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" ng-model="Emp.PAN" value="" name="PAN"  />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-9">
+                    <input type="submit" value="Save" ng-click="UpdateEmployee(Emp)" class="btn btn-primary btn-lg" />
+                    <input type="button" value="Cancel" class="btn btn-primary btn-lg" />
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+
+
+	
+    $('#profilePanel a').click(function (e) {
+        e.preventDefault();
+    });
+
+	
+appEIS.factory('employeeUpdateService', function ($http) {
+
+    empUpdatetObj = {};
+
+    empUpdatetObj.getByEid = function (eid) {
+        var Emp;
+
+        Emp = $http({ method: 'Get', url: 'http://localhost:60736/api/Employee', params: { id: eid } }).
+        then(function (response) {
+            return response.data;
+        });
+
+        return Emp;
+    };
+
+    return empUpdatetObj;
+});
+
+
+appEIS.controller('employeeUpdateController', function ($scope,  $routeParams, employeeUpdateService) {
+
+    $('#profilePanel a').click(function (e) {
+        e.preventDefault();
+    });
+
+    $scope.eid = $routeParams.EmployeeId;
+    employeeUpdateService.getByEid($scope.eid).then(function (result) {
+        $scope.Emp = result;
+        $scope.Emp.DOJ = new Date($scope.Emp.DOJ);
+    });
+    
+});
+
+
+
+
+empUpdatetObj.updateEmployee = function (emp) {
+        var Emp;
+
+        Emp = $http({ method: 'Put', url: 'http://localhost:60736/api/Employee', data: emp }).
+        then(function (response) {
+            return response.data;
+        }, function (error) {
+            return error.data;
+        });
+
+        return Emp;
+    };
+
+
+
+	 $scope.UpdateEmployee = function (Emp, IsValid) {
+        if (IsValid) {
+            employeeUpdateService.updateEmployee(Emp).then(function (result) {
+                if (result.ModelState == null) {
+                    $scope.Msg = " You have successfully updated " + result.EmployeeId;
+                    $scope.Flg = true;
+                    $scope.serverErrorMsgs = "";
+                    utilityService.myAlert();
+                }
+                else {
+                    $scope.serverErrorMsgs = result.ModelState;
+                }
+            });
+        }
+    };
+
+
+
+	
+<div>
+            <ul>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.FirstName.$error.required"> First Name is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.LastName.$error.required"> Last Name is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Gender.$error.required"> Gender is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Contact.$error.required"> Contact No. is required</li>
+                <li class="alert alert-danger" ng-if="updateEmployeeForm.$submitted && updateEmployeeForm.Address.$error.required"> Address is required</li>
+            </ul>
+
+            <ul ng-repeat="item in serverErrorMsgs">
+                <li><div class="alert alert-danger">{{item[0]}}</div></li>
+            </ul>
+        </div>
+
+
+
+		
+<div id="alert" class="alert alert-success" ng-show="Flg">
+    {{Msg}}
+</div>
+
+
+ //Total Exp should be greater than Relevant Exp
+            var TotalExpValue = emp.TotalExp;
+            var RelevantExpValue = emp.RelevantExp;
+
+            if (RelevantExpValue > TotalExpValue)
+            {
+                Errors.Add("Total Exp should be greater than Relevant Exp");
+            }
+
+            if (Errors.Count() == 0)
+                return true;
+            else
+                return false;
+
+
+
+<li class=""><a href="#Pic" data-toggle="tab" aria-expanded="true">Profile Pic</a></li>
+
+
+
+<div class="tab-pane fade " id="Pic">
+                    <div class="well">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+
+                                <div class="col-md-offset-0 col-md-4">
+                                    <img height="186" width="186">
+                                    <input type="file" class="form-control" />
+                                    <input type="button" class="btn btn-primary" ng-click="UploadFile()" value="Save" />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+ public HttpResponseMessage Post(string Id)
+        {
+            HttpResponseMessage result = null;
+            var httpRequest = HttpContext.Current.Request;
+            if (httpRequest.Files.Count > 0)
+            {
+                var docfiles = new List<string>();
+                foreach (string file in httpRequest.Files)
+                {
+                    var postedFile = httpRequest.Files[file];
+                    var filePath = HttpContext.Current.Server.MapPath("~/Files/ProfilePics/" + Id + ".jpeg");
+                    postedFile.SaveAs(filePath);
+
+                    docfiles.Add(filePath);
+                }
+                result = Request.CreateResponse(HttpStatusCode.Created, docfiles);
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+		return result;
+        }
+
+
+appEIS.directive('fileModel', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+});
+
+
+ utilityObj.uploadFile = function (file, uploadUrl, eid) {
+        var fd = new FormData();
+        fd.append('file', file);
+
+        var Img;
+
+        Img = $http({
+            method: 'Post', url: uploadUrl + eid, data: fd, transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).
+        then(function (response) {
+
+            return response.data;
+
+        }, function (error) {
+            return error.data;
+        });
+
+        return Img;
+    }
+
+
+
+ $scope.UploadFile = function () {
+        var file = $scope.myFile;
+        var uploadUrl = "http://localhost:60736/api/Upload/";
+        utilityService.uploadFile(file, uploadUrl, $scope.eid).then(function (result) {
+        });
+    };
+
+
+
+private static HttpResponseMessage GetFile(string Id)
+        {
+            var filePath = HttpContext.Current.Server.MapPath("~/Files/ProfilePics/");
+            Byte[] b;
+            if (File.Exists(filePath + Id + ".jpeg"))
+            {
+                b = File.ReadAllBytes(filePath + Id + ".jpeg");
+            }
+            else
+            {
+                b = File.ReadAllBytes(filePath + "anonymous.jpg");
+            }
+            HttpResponseMessage Response = new HttpResponseMessage(HttpStatusCode.OK);
+            Response.Content = new StringContent(Convert.ToBase64String(b));
+            Response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            return Response;
+
+        }
+
+
+
+ utilityObj.getFile = function (getFileUrl, eid) {
+        var Emps;
+
+        Emps = $http({ method: 'Get', url: getFileUrl, params: { Id: eid } }).
+        then(function (response) {
+            return response.data;
+        });
+
+        return Emps;
+    };
+
+
+utilityService.getFile("http://localhost:60736/api/Upload", $scope.eid).then(function (result) {
+            $scope.image = result;
+        });
+
+
+ <img src="data:image/jpeg;base64,{{image}}" height="186" width="186">
+
+
+ <div class="jumbotron" ng-controller="homeController">
+    <h2>EIS - Employee Information System</h2>
+    <p>This Web-based information system is designed to allow you to view and maintain your employee information throughout the year. You should use this system to maintain your complete information on employee record.</p>
+    <p>This is an n-tier Single Page Application (SPA) built on .Net platform using various technologies for various layers as given below</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> User Interface</b>: AngularJS and BootStrap</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> Service Layer</b>: Asp.Net Web API</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> Business Logic Layer</b>: C#.Net</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> Data Access Layer</b>: Entity Framework Code First</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> Back End</b>: MS SQL Server 2018</p>
+    <p class="col-sm-offset-1"><b><span class="glyphicon glyphicon-hand-right"></span> Tools</b>: Visual Studio 2015 and SQL Server Management Studio 2018</p>
+    <p>If you want to learn how to create this web app <br/><a class="btn btn-primary btn-lg">Then Enroll Now</a></p>
+</div>
+
+$http.defaults.headers.common['my_Token'] = "123456789";
+
+GlobalConfiguration.Configuration.MessageHandlers.Add(new EISAPIKeyHandler());
+
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0"/>
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler"
+        preCondition="integratedMode,runtimeVersionv4.0"/>
+    </handlers>
+
+
+	var apiKey = request.Headers.GetValues("my_Token").FirstOrDefault();
+
+
+	if (request.Headers.Contains("Access-Control-Request-Headers"))
+            {
+                return base.SendAsync(request, cancellationToken);
+            }
+
+
+			 else if (request.Headers.Contains("my_Token"))
+            {
+                var apiKey = request.Headers.GetValues("my_Token").FirstOrDefault();
+
+                if (apiKey == "123456789")
+                {
+                    return base.SendAsync(request, cancellationToken);
+                }
+            }
+
+
+ var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+            var taskObj = new TaskCompletionSource<HttpResponseMessage>();
+            taskObj.SetResult(response);
+            return taskObj.Task;
+
+
+			var filePath = HttpContext.Current.Server.MapPath("~/Files/log.txt");
+            var txt = DateTime.Now.ToString() + " : " + actionExecutedContext.Exception.Message + "\n";
+            System.IO.File.AppendAllText(filePath, txt);
+
+			 if (actionExecutedContext.Exception.GetType() == typeof(SqlException))
+                actionExecutedContext.Response = actionExecutedContext.Request
+                        .CreateErrorResponse(HttpStatusCode.BadRequest, actionExecutedContext.ActionContext.ModelState);
+ 
+ 
+  public class Utility
+    {
+        public static bool SendEmail(string ToEmail,string Subject,string Body)
+        {
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
+            client.Timeout = 10000;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new System.Net.NetworkCredential("youremail@gmail.com", "*****************");
+
+            MailMessage mm = new MailMessage("Admin@EIS.com", ToEmail, Subject, Body);
+                        
+            //client.Send(mm);
+            return true;
+        }
+    }
+	
+	 public bool RecoverPasswordByEmail(ref Employee emp)
+        {
+            var employee = ObjDb.GetByEmail(emp.Email);
+            if (employee == null)
+            {
+                Errors.Add("Email id Does not Exist");
+            }
+            else
+            {
+                string subject = "Your Login Credentials On EIS";
+                string body = "User Name : " + emp.Email + "\n" +
+                             "Password : " + emp.Password + "\n" +
+                             "Login Here : http://localhost:61158//EIS.html#/Login" + "\n" +
+                             "Regards," + "\n" +
+                             "empManagementSystem.com";
+                Utility.SendEmail(emp.Email, subject, body);
+            }
+            if (Errors.Count() == 0)
+            {
+                emp = employee;
+                return true;
+            }
+            else
+                return false;
+        }
+		
+		
+		[ResponseType(typeof(Employee))]
+        [ActionName("RecoverPassword")]
+        public IHttpActionResult Get(string empStr)
+        {
+            var emp = JsonConvert.DeserializeObject<Employee>(empStr);
+
+            if (employeeObjBs.RecoverPasswordByEmail(ref emp))
+            {
+                return Ok(emp);
+            }
+            else
+            {
+                foreach (var error in employeeObjBs.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+                return BadRequest(ModelState);
+            }
+        }
+		
+		
+		appEIS.factory('recoverPasswordService', function ($http,$rootScope) {
+    recoverPasswordObj = {};
+
+    recoverPasswordObj.getByEmp = function (employee) {
+        var Emp;
+
+        Emp = $http({
+            method: 'GET', url: 'http://localhost:61158/api/Login/RecoverPassword', params: { empStr: JSON.stringify(employee) }
+        }).
+        then(function (response) {
+            return response.data;
+        }, function (error) {
+            return error.data;
+        });
+
+        return Emp;
+    };
+
+    return recoverPasswordObj;
+});
+
+
+
+appEIS.controller('recoverPasswordController', function ($scope, recoverPasswordService, utilityService) {
+    $scope.RecoverPassword = function (emp, IsValid) {
+        console.log(emp);
+        if (IsValid) {
+            recoverPasswordService.getByEmp(emp).then(function (result) {
+                if (result.ModelState == null) {
+                    $scope.Msg = " You login credentials has been emailed. Kindly check you email.";
+                    $scope.Flg = true;
+                    $scope.serverErrorMsgs = "";
+                    utilityService.myAlert();
+                }
+                else {
+                    $scope.serverErrorMsgs = result.ModelState;
+                }
+            });
+        }
+    }
+});
+
+<div id="alert" class="alert alert-success" ng-show="Flg">
+    {{Msg}}
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Recover Password</h3>
+    </div>
+    <form name="recoverPasswordForm" novalidate>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Email</label>
+                    <div class="col-md-4">
+                        <input type="email" name="Email" ng-model="Emp.Email" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-6">
+                        <input type="submit" ng-click="RecoverPassword(Emp,recoverPasswordForm.$valid)" value="RecoverPassword" class="btn btn-primary" />
+                        <a href="#/Login" class="btn btn-link">Back To Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div>
+        <ul>
+            <li class="alert alert-danger" ng-if="recoverPasswordForm.$submitted && recoverPasswordForm.Email.$error.required"> Email is required</li>
+            <li class="alert alert-danger" ng-if="recoverPasswordForm.$submitted && recoverPasswordForm.Email.$error.email">Email is Invalid</li>
+        </ul>
+
+        <ul ng-repeat="item in serverErrorMsgs">
+            <li><div class="alert alert-danger">{{item[0]}}</div></li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+          public bool RemindEmployee(string id, string msgStr)
+        {
+            var employee = ObjDb.GetByID(id);
+            if (employee == null)
+            {
+                Errors.Add("Email id Does not Exist");
+            }
+            else
+            {
+                string subject = "Admin - Alert";
+                string body = msgStr + "\n" +
+                         "Regards," + "\n" +
+                         "empManagementSystem.com";
+                Utility.SendEmail(employee.Email, subject, body);
+            }
+            if (Errors.Count() == 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+		[ResponseType(typeof(Employee))]
+        [ActionName("Remind")]
+        public IHttpActionResult Get(string id,string msgStr)
+        {
+            
+            if (employeeObjBs.RemindEmployee(id, msgStr))
+                return Ok();
+            else
+                return NotFound();
+        }
+
+		$scope.RemindEmployeeById = function (Emp, msg) {
+        var msg = $window.prompt("Please enter your message", "Need your info! its urgent");
+        employeeMgmtService.remindEmployeeById(Emp.EmployeeId, msg).then(function (result) {
+            if (result.status == 200) {
+                $scope.Msg = " You have successfully reminded! ";
+                $scope.Flg = true;
+                utilityService.myAlert();
+            }
+            else {
+                $scope.serverErrorMsgs = result.data.ModelState;
+            }
+        });
+
+    };
+
+
+	 empMgmtObj.remindEmployeeById = function (eid,msg) {
+        var Emps;
+
+        Emps = $http({ method: 'Get', url: $rootScope.ServiceUrl + 'Employee/Remind', params: { id: eid, msgStr:msg } }).
+        then(function (response) {
+            return response;
+
+        });
+
+        return Emps;
+    };
+
+
+	<td><a>Remind</a></td>
+
+	<td ng-click="RemindEmployeeById(emp)"><a><span class="glyphicon glyphicon-envelope"></span></a></td>
+
+
+	 <a href="Views/Employee/EmployeeMgmt/test-(97-2003).xls">Download sample excel file here</a>
+
+
+	 if (httpRequest.Files.Count > 0)
+            {
+                var postedFile = httpRequest.Files[0];
+                var filePath = "";
+                if (postedFile.ContentType == "application/vnd.ms-excel")
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Files/BulkData/" + postedFile.FileName);
+                    postedFile.SaveAs(filePath);
+                    return Request.CreateResponse(HttpStatusCode.Created, postedFile.FileName);
+                    
+                }
+                else
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Files/ProfilePics/" + Id + ".jpeg");
+                    postedFile.SaveAs(filePath);                    
+                    return GetFile(Id); ;
+                }
+                
+            }
+            else
+            {
+                result = Request.CreateResponse(HttpStatusCode.BadRequest);
+                return result;
+            }
+
+			$scope.CreateMultiEmployee = function () {
+        var file = $scope.myFile;
+        var uploadUrl = 'http://localhost:61158/api/Upload/';
+        utilityService.uploadFile(file, uploadUrl, $scope.eid).then(function (fileName) {
+            console.log(fileName);
+        });
+    };
+
+
+
+	 <table width="100%">
+                    <tr><td width="45%"><hr/></td><td align="center"><b>(Or)</b></td><td width="45%"><hr /></td></tr>
+                </table>
+                <br/>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Upload Excel *</label>
+                    <div class="col-md-4">
+                        <input type="file" class="form-control" file-model="myFile" />
+                    </div>
+                    <div class="col-md-4">
+                        <a href="Views/Employee/EmployeeMgmt/test-(97-2003).xls">Download sample excel file here</a>
+    
+</div>
+                    <div class="col-md-offset-2 col-md-6">
+                        <br /><input type="button" value="Create" ng-click="CreateMultiEmployee()" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>
+
+
+
+				 employeeMgmtService.createMultiEmployee(fileName).then(function (result) {
+                if (result.status == 200) {
+                    $scope.Msg = " You have successfully Created "+result.data+" record(s) ";
+                    $scope.Flg = true;
+                    utilityService.myAlert();
+
+                    employeeMgmtService.getAll().then(function (result) {
+                        $scope.Emps = result;
+                    });
+                }
+                else {
+                    $scope.serverErrorMsgs = result.data.ModelState;
+                }
+            });
+
+
+
+empMgmtObj.createMultiEmployee = function (fileName) {
+        var Emp;
+
+        Emp = $http({ method: 'Post', url: 'http://localhost:61158/api/Employee/CreateMultiEmployee', params: { fileName: fileName } }).
+        then(function (response) {
+            
+            return response.data;
+            
+        }, function(error) {
+            return error.data;
+        });
+
+        return Emp;
+    };
+
+ [ResponseType(typeof(int))]
+        [ActionName("CreateMultiEmployee")]
+        public IHttpActionResult Post(string fileName)
+        {
+            var filePath = HttpContext.Current.Server.MapPath("~/Files/BulkData/" + fileName);
+            int count = 0;
+            DataTable dt = ReadExcelFile(filePath);
+            if(dt == null)
+            {
+                foreach (var error in employeeObjBs.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+                return BadRequest(ModelState);
+            }
+            foreach (DataRow item in dt.Rows)
+            {
+                Employee E = new Employee() { EmployeeId = item[0].ToString(), Email = item[1].ToString() };
+                if(employeeObjBs.Insert(E))
+                count++;
+            }
+
+            return Ok(count);
+        }
+
+        private DataTable ReadExcelFile(string path)
+        {
+
+            using (OleDbConnection conn = new OleDbConnection())
+            {
+                DataTable dt = new DataTable();
+                string Import_FileName = path;
+                string fileExtension = Path.GetExtension(Import_FileName);
+                if (fileExtension != ".xls")
+                {
+                    employeeObjBs.Errors.Add("Only Xls is allowed");
+                    return null;
+                }
+                else
+                {
+                    conn.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Import_FileName + ";" + "Extended Properties='Excel 8.0;HDR=YES;'";
+                    using (OleDbCommand comm = new OleDbCommand())
+                    {
+                        comm.CommandText = "Select * from [Sheet1$]";
+
+                        comm.Connection = conn;
+
+                        using (OleDbDataAdapter da = new OleDbDataAdapter())
+                        {
+                            da.SelectCommand = comm;
+                            da.Fill(dt);
+                            return dt;
+                        }
+
+                    }
+                }
+
+
+            }
+        }public bool RemindEmployee(string id, string msgStr)
+        {
+            var employee = ObjDb.GetByID(id);
+            if (employee == null)
+            {
+                Errors.Add("Email id Does not Exist");
+            }
+            else
+            {
+                string subject = "Admin - Alert";
+                string body = msgStr + "\n" +
+                         "Regards," + "\n" +
+                         "www.empManagement.com";
+                Utility.SendEmail(employee.Email, subject, body);
+            }
+            if (Errors.Count() == 0)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+		else if(actionExecutedContext.Exception.GetType()==typeof(System.Net.Mail.SmtpException))
+            {
+                actionExecutedContext.ActionContext.ModelState.AddModelError("", "Unable to send Email.");
+                actionExecutedContext.Response = actionExecutedContext.Request
+                        .CreateErrorResponse(HttpStatusCode.GatewayTimeout, actionExecutedContext.ActionContext.ModelState);
+
+            }

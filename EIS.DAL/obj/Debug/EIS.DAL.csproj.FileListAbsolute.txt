@@ -1,0 +1,14 @@
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EIS.DAL.dll.config
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EIS.DAL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EIS.DAL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EIS.BOL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EntityFramework.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EntityFramework.SqlServer.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EIS.BOL.pdb
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EntityFramework.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\bin\Debug\EntityFramework.SqlServer.xml
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\obj\Debug\EIS.DAL.csprojResolveAssemblyReference.cache
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\obj\Debug\EIS.DAL.Migrations.InitialCreate.resources
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\obj\Debug\EIS.DAL.csproj.GenerateResource.Cache
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\obj\Debug\EIS.DAL.dll
+I:\Video Tutorial\AngularJS-Project\EmployeeInformationSystem\EmployeeInformationSystem\EIS.DAL\obj\Debug\EIS.DAL.pdb

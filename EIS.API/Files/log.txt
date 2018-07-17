@@ -1,0 +1,39 @@
+﻿03-03-2017 16:08:43 : SQL Server service has been paused. No new connections will be allowed. To resume the service, use SQL Computer Manager or the Services application in Control Panel.
+Login failed for user ''.
+03-03-2017 16:14:36 : SQL Server service has been paused. No new connections will be allowed. To resume the service, use SQL Computer Manager or the Services application in Control Panel.
+Login failed for user ''.
+03-03-2017 16:21:05 : Sequence contains no elements
+03-03-2017 16:21:22 : Sequence contains no elements
+03-03-2017 16:29:17 : Sequence contains no elements
+03-03-2017 16:29:17 : Sequence contains no elements
+03-03-2017 16:30:09 : Exception of type 'System.Exception' was thrown.
+03-03-2017 16:30:09 : Exception of type 'System.Exception' was thrown.
+05-03-2017 12:02:12 : Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+05-03-2017 13:50:44 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 13:51:26 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 13:54:01 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 13:54:50 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 14:03:08 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 14:03:29 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 14:07:12 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+05-03-2017 14:07:26 : The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required. Learn more at
+7/17/2018 6:58:46 PM : A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+7/17/2018 6:58:46 PM : A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections. (provider: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+7/17/2018 7:04:14 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:04:14 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:04:32 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:04:32 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:05:17 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:05:17 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:06:13 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:06:13 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:08:35 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:08:35 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:08:43 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:08:43 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:05 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:05 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:13 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:13 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:28 PM : An error occurred while executing the command definition. See the inner exception for details.
+7/17/2018 7:09:28 PM : An error occurred while executing the command definition. See the inner exception for details.
